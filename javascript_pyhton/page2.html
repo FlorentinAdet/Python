@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compteur de caractères</title>
+</head>
+<body>
+    <h1>Compteur de caractères</h1>
+    
+    <label for="inputText">Entrez une chaîne de caractères :</label>
+    <input type="text" id="inputText" placeholder="Entrez votre texte">
+
+    <button onclick="compterCaracteres()">Compter</button>
+
+    <p id="result"></p>
+
+    <script>
+        function compterCaracteres() {
+            var inputText = document.getElementById('inputText').value;
+            var xhr = new XMLHttpRequest();
+            
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById('result').innerHTML = 'Nombre de majsucule : ' + xhr.responseText;
+                }
+            };
+            
+            xhr.open('GET', '/nb_maj?text=' + encodeURIComponent(inputText), true);
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

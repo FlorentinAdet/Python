@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Call Python from JavaScript</title>
+</head>
+<body>
+
+<h1>Calling Python from JavaScript</h1>
+
+<button onclick="callPythonFunction()">Call Python Function</button>
+
+<script>
+    function callPythonFunction() {
+        // Create a new XMLHttpRequest object
+		//alert("1");
+        var xhr = new XMLHttpRequest();
+
+		var param1 = "Charles"
+		var param2 = 40
+        // Configure the request: GET-request for Flask app
+        xhr.open('GET', 'http://localhost:5000/call_python_function?name=' + param1 + '&age=' + param2);
+
+        // Send the request
+        xhr.send();
+		//alert("2");
+        // This function will be called after the response is received
+        xhr.onload = function () {
+			//alert("3");
+            // Check if the request was successful (status code 200)
+            if (xhr.status == 200) {
+                // Parse the response (assuming it's a plain text response)
+                //alert("4");
+				var response = xhr.responseText;
+				//alert("5");
+                // Display the response
+                alert(response);
+            } else {
+                // If the request was not successful, handle the error
+                alert('Error calling Python function. Status code: ' + xhr.status);
+            }
+        };
+    }
+</script>
+
+</body>
+</html>
